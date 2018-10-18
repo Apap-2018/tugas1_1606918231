@@ -4,12 +4,13 @@
 		<title>Home</title>
 		<head th:fragment="css">
 			<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-			<link rel="stylesheet" th:href="@{/css/dataTables.bootstrap.min.css}">
+			<link rel="stylesheet" th:href="@{/css/jquery.dataTables.min.css}">
 		</head>
 		
 		<head th:fragment="js">
+			<script th:src="@{/js/jquery.js}"></script>
 			<script th:src="@{/js/bootstrap.min.js}"></script>
-			<script th:src="@{/js/dataTables.bootstrap.min.js}"></script>
+			<script th:src="@{/js/jquery.dataTables.min.js}"></script>
 		</head>
 		
 	</head>
@@ -32,7 +33,7 @@
 						<a class="nav-link" href="#">Cari Pegawai</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Lihat Semua Jabatan</a>
+						<a class="nav-link" th:href="@{/jabatan/viewall}">Lihat Semua Jabatan</a>
 					</li>
 				</ul>
 			</div>

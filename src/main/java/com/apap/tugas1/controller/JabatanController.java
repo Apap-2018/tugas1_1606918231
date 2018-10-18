@@ -38,6 +38,13 @@ public class JabatanController {
 		return "view-jabatan";
 	}
 	
+	@RequestMapping(value = "/jabatan/viewall", method = RequestMethod.GET)
+	private String viewAllJabatan(Model model) {
+		model.addAttribute("jabatanList", jabatanService.getListJabatan());
+		return "view-all-jabatan";
+	}
+	
+	
 	@RequestMapping(value = "/jabatan/ubah", method = RequestMethod.GET)
 	private String ubahJabatan(@RequestParam(value = "idJabatan") long idJabatan, Model model) {
 		JabatanModel jabatan = jabatanService.getJabatanById(idJabatan);
