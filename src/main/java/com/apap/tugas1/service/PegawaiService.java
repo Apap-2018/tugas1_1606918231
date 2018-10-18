@@ -7,4 +7,5 @@ import com.apap.tugas1.model.PegawaiModel;
 @Service
 public interface PegawaiService {
 	PegawaiModel getPegawaiDetailByNIP(String nip);
+	Double getGajiPegawai(String nip);
 }

@@ -11,7 +11,15 @@
 		<button type="submit">lihat</button>
 	</form>
 	
-	
+	<h2>Lihat Detail Jabatan</h2>
+	<p>Pilih Jabatan</p>
+	<form th:action="@{/jabatan/view}" method = "GET">
+		<select th:name="idJabatan">
+			<option disabled="disabled" selected="selected">-- Pilih Jabatan --</option>
+			<option th:each="jabatan : ${listJabatan}" th:value="${jabatan.id}" th:text="${jabatan.nama}"></option>
+		</select>
+		<button type="submit">Cari</button>
+	</form>
 	
 </body>
 

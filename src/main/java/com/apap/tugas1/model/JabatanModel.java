@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "jabatan")
-public class JabatanModel {
+public class JabatanModel implements Comparable<JabatanModel>{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,7 +45,9 @@ public class JabatanModel {
 			mappedBy = "jabatanList")
 	private List<PegawaiModel> pegawaiList;
 	
-	
+	public int compareTo(JabatanModel jabatan) {
+		return jabatan.gajiPokok.intValue() - this.gajiPokok.intValue();
+	}
 	
 	public List<PegawaiModel> getPegawaiList() {
 		return pegawaiList;

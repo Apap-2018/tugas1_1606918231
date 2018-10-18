@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>View Detail</title>
+		<meta charset="ISO-8859-1">
+	</head>
+	<body>
+		<h2 th:text="'Detail Jabatan '+${jabatan.nama}"></h2>
+		<p th:text="'Nama : '+ ${jabatan.nama}"></p>
+		<p th:text="'Nama : '+ ${jabatan.deskripsi}"></p>
+		<p th:text="'Gaji Pokok : '+ ${#numbers.formatDecimal(jabatan.gajiPokok, 0, 'COMMA', 2, 'POINT')}"></p>
+		<button>Ubah</button>
+		<button>Hapus</button>
+	</body>
+</html>
