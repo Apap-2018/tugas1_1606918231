@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Home</title>
+</head>
+<body>
+	<h2>Lihat Data Pegawai berdasarkan NIP</h2>
+	<p>Masukan Nomor Induk Pegawai</p>
+	<form th:action="@{/pegawai/view}" method="GET">
+		<input type="text" name="nip" />
+		<button type="submit">lihat</button>
+	</form>
+	
+	
+	
+</body>
+
+</html>
