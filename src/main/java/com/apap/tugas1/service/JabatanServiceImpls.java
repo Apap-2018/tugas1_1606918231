@@ -42,5 +42,10 @@ public class JabatanServiceImpls implements JabatanService{
 		jabatanDb.save(resJabatan);
 		
 		return resJabatan;
+	}
+
+	@Override
+	public void deleteJabatanById(long id) {
+		jabatanDb.deleteById(id);
 	}	
 }

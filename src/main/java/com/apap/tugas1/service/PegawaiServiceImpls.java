@@ -30,10 +30,9 @@ public class PegawaiServiceImpls implements PegawaiService{
 		
 		PegawaiModel pegawai = pegawaiDb.findByNip(nip);
 		List<JabatanModel> listJabatan = pegawai.getJabatanList();
-		Collections.sort(listJabatan);
 		
 		Double gajiPokok = listJabatan.get(0).getGajiPokok();
-		Double tunjangan = pegawai.getInstansi().getProvinsi().getPersentaseTunjangan();
+		Double tunjangan = pegawai.getInstansi().getProvinsi().getPresentaseTunjangan();
 		
 		System.out.println(gajiPokok + ((tunjangan/100)*gajiPokok));
 		return gajiPokok + ((tunjangan/100)*gajiPokok);

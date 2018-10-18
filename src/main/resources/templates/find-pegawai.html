@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	
+	<title>Cari Pegawai</title>
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<h2>Cari Pegawai</h2>
+	<br>
+	<form th:action="@{/jabatan/view}" method = "GET">
+		Provinsi :
+		<select th:name="idJabatan">
+			<option disabled="disabled" selected="selected">-- Pilih Provinsi --</option>
+			<!--<option th:each="jabatan : ${listJabatan}" th:value="${jabatan.id}" th:text="${jabatan.nama}"></option> -->
+		</select>
+		<br>
+		Nama Instansi :
+		<select th:name="idJabatan">
+			<option disabled="disabled" selected="selected">-- Nama Instansi --</option>
+			<!--<option th:each="jabatan : ${listJabatan}" th:value="${jabatan.id}" th:text="${jabatan.nama}"></option> -->
+		</select>
+		<br>
+		Jabatan :
+		<select th:name="idJabatan">
+			<option disabled="disabled" selected="selected">-- Pilih Jabatan --</option>
+			<!--<option th:each="jabatan : ${listJabatan}" th:value="${jabatan.id}" th:text="${jabatan.nama}"></option> -->
+		</select>
+		<br>		
+		<button type="submit">Cari</button>
+	</form>
+	
+	<table id="table_id" class="display">
+    <thead>
+        <tr>
+            <th>Column 1</th>
+            <th>Column 2</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Row 1 Data 1</td>
+            <td>Row 1 Data 2</td>
+        </tr>
+        <tr>
+            <td>Row 2 Data 1</td>
+            <td>Row 2 Data 2</td>
+        </tr>
+    </tbody>
+</table>
+	
+	<br>
+	
+</body>
+
+</html>

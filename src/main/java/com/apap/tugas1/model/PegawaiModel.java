@@ -1,5 +1,6 @@
 package com.apap.tugas1.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
@@ -23,11 +24,9 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
 @Entity
 @Table(name = "pegawai")
-public class PegawaiModel {
-	
+public class PegawaiModel implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -62,97 +61,78 @@ public class PegawaiModel {
 	@JsonIgnore
 	private InstansiModel instansi;
 	
-	
 	@ManyToMany(fetch = FetchType.LAZY,
-			cascade = {
-					CascadeType.PERSIST,
-					CascadeType.MERGE
-			})
-	@JoinTable(name = "jabatan_pegawai",
-	
-			joinColumns = { @JoinColumn(name = "id_pegawai") },
-			inverseJoinColumns = { @JoinColumn(name = "id_jabatan")})
-	private List<JabatanModel> jabatanList;
-	
-	public long getId() {
-		return id;
-	}
-
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-
-	public String getNip() {
-		return nip;
-	}
-
-
-	public void setNip(String nip) {
-		this.nip = nip;
-	}
-
-
-	public String getNama() {
-		return nama;
-	}
-
-
-	public void setNama(String nama) {
-		this.nama = nama;
-	}
-
-
-	public String getTempatLahir() {
-		return tempatLahir;
-	}
-
-
-	public void setTempatLahir(String tempatLahir) {
-		this.tempatLahir = tempatLahir;
-	}
-
-
-	public Date getTanggalLahir() {
-		return tanggalLahir;
-	}
-
-
-	public void setTanggalLahir(Date tanggalLahir) {
-		this.tanggalLahir = tanggalLahir;
-	}
-
-
-	public InstansiModel getInstansi() {
-		return instansi;
-	}
-
-
-	public void setInstansi(InstansiModel instansi) {
-		this.instansi = instansi;
-	}
-
-
-	public String getTahunMasuk() {
-		return tahunMasuk;
-	}
-
-
-	public void setTahunMasuk(String tahunMasuk) {
-		this.tahunMasuk = tahunMasuk;
-	}
-
+            cascade = {
+                CascadeType.PERSIST,
+                CascadeType.MERGE
+            })
+    @JoinTable(name = "jabatan_pegawai",
+            joinColumns = { @JoinColumn(name = "id_pegawai") },
+            inverseJoinColumns = { @JoinColumn(name = "id_jabatan") })
+    private List<JabatanModel> jabatanList;
 
 	public List<JabatanModel> getJabatanList() {
 		return jabatanList;
 	}
 
-
 	public void setJabatanList(List<JabatanModel> jabatanList) {
 		this.jabatanList = jabatanList;
 	}
-	
-	
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getNip() {
+		return nip;
+	}
+
+	public void setNip(String nip) {
+		this.nip = nip;
+	}
+
+	public String getNama() {
+		return nama;
+	}
+
+	public void setNama(String nama) {
+		this.nama = nama;
+	}
+
+	public String getTempatLahir() {
+		return tempatLahir;
+	}
+
+	public void setTempatLahir(String tempatLahir) {
+		this.tempatLahir = tempatLahir;
+	}
+
+	public Date getTanggalLahir() {
+		return tanggalLahir;
+	}
+
+	public void setTanggalLahir(Date tanggalLahir) {
+		this.tanggalLahir = tanggalLahir;
+	}
+
+	public String getTahunMasuk() {
+		return tahunMasuk;
+	}
+
+	public void setTahunMasuk(String tahunMasuk) {
+		this.tahunMasuk = tahunMasuk;
+	}
+
+	public InstansiModel getInstansi() {
+		return instansi;
+	}
+
+	public void setInstansi(InstansiModel instansi) {
+		this.instansi = instansi;
+	}
 	
 }

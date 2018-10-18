@@ -9,19 +9,33 @@
 <body>
 	<nav th:replace="fragments/fragment :: navbar"></nav>
 	
+	<div class="container-fluid">
 	<h2>Ubah Jabatan</h2>
 	<form th:action="@{/jabatan/ubah}" th:object="${jabatan}" method="POST">
+		<div class="row">
 		<input type="hidden" name="idJabatan" th:value="${jabatan.id}" />
-		Nama        : 
-		<input type="text" name="nama" />
-		<br><br>
-		Deskripsi   : 
-		<input type="text" name="deskripsi" />
-		<br><br>
-		Gaji Pokok  : 
-		<input type="number" step="0.01" name="gajiPokok" />
-		<br><br>
-		<button type="submit">Submit</button>
+			<div class="col-2">Nama</div>
+			<div class="col-4"> 
+				<input class="form-control" type="text" name="nama" />
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-2">Deskripsi</div>
+			<div class="col-4">
+			<input class="form-control" type="text" name="deskripsi" />
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-2">Gaji Pokok</div>
+			<div class="col-4"> 
+			<input class="form-control" type="number" step="0.01" name="gajiPokok" />
+			</div>
+		</div>
+		<br>
+		<button class="btn btn-primary" type="submit">Submit</button>
 	</form>
+	</div>
 </body>
 </html>

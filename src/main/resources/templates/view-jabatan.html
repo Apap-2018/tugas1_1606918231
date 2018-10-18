@@ -9,15 +9,38 @@
 	<body>
 		<nav th:replace="fragments/fragment :: navbar"></nav>
 		
-		<h2 th:text="'Detail Jabatan '+${jabatan.nama}"></h2>
-		<p th:text="'Nama : '+ ${jabatan.nama}"></p>
-		<p th:text="'Nama : '+ ${jabatan.deskripsi}"></p>
-		<p th:text="'Gaji Pokok : '+ ${#numbers.formatDecimal(jabatan.gajiPokok, 0, 'COMMA', 2, 'POINT')}"></p>
+		<div class="container-fluid">
+		<h2 th:text="'Detail Jabatan - '+${jabatan.nama}"></h2>
+			<br>
+			<div class="row">
+				<div class="col-2">Nama</div>
+				<div class="col-9" th:text="${jabatan.nama}"></div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-2">Deskripsi</div>
+				<div class="col-9" th:text="${jabatan.deskripsi}"></div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-2">Gaji Pokok</div>
+				<div class="col-9" th:text="${#numbers.formatDecimal(jabatan.gajiPokok, 0, 'COMMA', 2, 'POINT')}"></div>
+			</div>
+			<hr>
+		<div class="row">
+		<div class="col-1">
 		<form th:action="@{/jabatan/ubah/}" method="GET">
 			<input type="hidden" name="idJabatan" th:value="${jabatan.id}" />
-			<button value="submit">Update</button>
+			<button class="btn btn-primary" value="submit">Update</button>
 		</form>
-		<br>
-		<button>Hapus</button>
+		</div>
+		<div class="col-1">
+		<form th:action="@{/jabatan/hapus/}" method="POST">
+			<input type="hidden" name="idJabatan" th:value="${jabatan.id}" />
+			<button class="btn btn-primary" value="submit">Hapus</button>
+		</form>
+		</div>
+		</div>
+		</div>
 	</body>
 </html>

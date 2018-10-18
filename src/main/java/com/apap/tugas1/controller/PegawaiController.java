@@ -45,4 +45,8 @@ public class PegawaiController {
 		return "view-pegawai";
 	}
 	
+	@RequestMapping(value = "/pegawai/cari")
+	private String findPegawai(Model model) {
+		return "find-pegawai";
+	}
 }
