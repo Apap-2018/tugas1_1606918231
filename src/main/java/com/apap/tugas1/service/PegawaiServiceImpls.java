@@ -22,7 +22,6 @@ public class PegawaiServiceImpls implements PegawaiService{
 	
 	@Override
 	public PegawaiModel getPegawaiDetailByNIP(String nip) {
-		
 		return pegawaiDb.findByNip(nip);
 	}
 

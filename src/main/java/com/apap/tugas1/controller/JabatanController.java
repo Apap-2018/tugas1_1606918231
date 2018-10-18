@@ -37,4 +37,21 @@ public class JabatanController {
 		return "view-jabatan";
 	}
 	
+	@RequestMapping(value = "/jabatan/ubah", method = RequestMethod.GET)
+	private String ubahJabatan(@RequestParam(value = "idJabatan") long idJabatan, Model model) {
+		JabatanModel jabatan = jabatanService.getJabatanById(idJabatan);
+		model.addAttribute("jabatan", jabatan);
+		return "update-jabatan";
+	}
+	
+	@RequestMapping(value = "/jabatan/ubah", method = RequestMethod.POST)
+	private String ubahJabatanSubmit(
+			@RequestParam(value = "idJabatan") long idJabatan,
+			@ModelAttribute JabatanModel jabatan,
+			Model model) {
+		jabatan.setId(idJabatan);
+		jabatanService.updateJabatan(jabatan);
+		return "update";
+	}
+	
 }
