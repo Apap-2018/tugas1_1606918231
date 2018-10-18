@@ -2,8 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<title>Home</title>
+	
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
 <body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	
 	<h2>Lihat Data Pegawai berdasarkan NIP</h2>
 	<p>Masukan Nomor Induk Pegawai</p>
 	<form th:action="@{/pegawai/view}" method="GET">
