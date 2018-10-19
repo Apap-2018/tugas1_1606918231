@@ -15,24 +15,35 @@
 		<br>
 		<hr>
 		<h2>Lihat Data Pegawai berdasarkan NIP</h2>
-		<p>Masukan Nomor Induk Pegawai</p>
+		<p><strong>Masukan Nomor Induk Pegawai</strong></p>
 		<form th:action="@{/pegawai/view}" method="GET">
-			<input type="text" name="nip" />
+			<div class="row">
+				<div class="col-4">
+					<input class="form-control" type="text" name="nip" />
+				</div>
+			</div>
 			<br>
-			<button class="btn btn-primary" type="submit">lihat</button>
+			<button class="btn btn-primary" type="submit">Lihat</button>
 		</form>
 		<br>
 		<hr>
 		<h2>Lihat Detail Jabatan</h2>
-		<p>Pilih Jabatan</p>
+		<p><strong>Pilih Jabatan</strong></p>
 		<form th:action="@{/jabatan/view}" method = "GET">
-			<select th:name="idJabatan">
-				<option disabled="disabled" selected="selected">-- Pilih Jabatan --</option>
-				<option th:each="jabatan : ${listJabatan}" th:value="${jabatan.id}" th:text="${jabatan.nama}"></option>
-			</select>
+			<div class="row">
+				<div class="col-3">
+					<select class="form-control" th:name="idJabatan">
+						<option disabled="disabled" selected="selected"> Pilih Jabatan </option>
+						<option th:each="jabatan : ${listJabatan}" th:value="${jabatan.id}" th:text="${jabatan.nama}"></option>
+					</select>
+				</div>
+			</div>
 			<br>
 			<button class="btn btn-primary" type="submit">Cari</button>
 		</form>
+		<br>
+		<hr>
+		<h2></h2>
 	</div>
 </body>
 

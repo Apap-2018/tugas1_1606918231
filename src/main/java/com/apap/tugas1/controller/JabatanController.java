@@ -40,7 +40,7 @@ public class JabatanController {
 	
 	@RequestMapping(value = "/jabatan/viewall", method = RequestMethod.GET)
 	private String viewAllJabatan(Model model) {
-		model.addAttribute("jabatanList", jabatanService.getListJabatan());
+		model.addAttribute("jabatanList", jabatanService.findAllJabatan());
 		return "view-all-jabatan";
 	}
 	

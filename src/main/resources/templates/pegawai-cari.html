@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Cari Pegawai</title>
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	
+	<div class="container-fluid">
+	<h2>Cari Pegawai</h2>
+	<br><br>
+		<table id="aTable">
+			<thead>
+				<tr>
+					<th>NIP</th>
+					<th>Nama</th>
+					<th>Tempat Lahir</th>
+					<th>Tanggal Lahir</th>
+					<th>Tahun Masuk</th>
+					<th>Nama Instansi</th>
+					<th>Jabatan</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+	
+	<script>
+	$('#provinsi').change(
+	        function() {
+	        	
+	            $.getJSON("http://localhost:8080/get-provinsi", {
+	                provinsiId : $(this).val(),
+	                ajax : 'true'
+	            }, function(data) {
+	                var html = '<option disabled="disabled" selected="selected">-- Pilih Instansi --</option>';
+	                var len = data.length;
+	                for (var i = 0; i < len; i++) {
+	                    html += 
+	                    	'<option value= "'+ data[i].id +'" th:text="'+ data[i].nama +'">' + data[i].nama + '</option>';
+	                }
+	                $('#instansi').html(html);
+	         });
+           });
+		 
+		 $('#instansi').change(
+			function(){				
+				
+				$.getJSON("http://localhost:8080/get-instansi", {
+	                instansiId : $(this).val(),
+	                ajax : 'true'
+	            }, function(data) {
+	                this.value = data;
+	       	});
+		});	
+	
+	</script>
+</body>
+</html>

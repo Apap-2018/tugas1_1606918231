@@ -14,40 +14,40 @@
 	<br>
 	
 	<form th:action="@{/pegawai/ubah}" th:object="${pegawai}" method="POST">
-		<input type="hidden" id="nipHid" th:value="${pegawai.nip}" th:field="*{nip}">
-		<input type="hidden" id="idPegawai" th:value="${pegawai.id}" th:field="*{id}">
+		<input type="hidden" id="nipP" th:value="${pegawai.nip}" th:field="*{nip}">
+		<input type="hidden" id="id_pegawai" th:value="${pegawai.id}" th:field="*{id}">
 		<div class="row">
 				<div class="col-2">Nama</div>
 				<div class="col-4">
-					<input class="form-control" type="text" name="nama" />
+					<input class="form-control" type="text" name="nama" th:field="*{nama}" />
 				</div>
 			</div>
 			<br>
 			<div class="row">
 				<div class="col-2">Tempat Lahir</div>
 				<div class="col-4">
-					<input class="form-control" type="text" name="tempatLahir" />
+					<input class="form-control" type="text" name="tempatLahir" th:field="*{tempatLahir}" />
 				</div>
 			</div>
 			<br>
 			<div class="row">
 				<div class="col-2">Tanggal Lahir</div>
 				<div class="col-2">
-					<input class="form-control" type="date" name="tanggalLahir" />
+					<input class="form-control" type="date" name="tanggalLahir" th:field="*{tanggalLahir}" />
 				</div>
 			</div>
 			<br>
 			<div class="row">
 				<div class="col-2">Tahun Masuk</div>
 				<div class="col-2">
-					<input class="form-control" type="text" name="tahunMasuk" />
+					<input class="form-control" type="text" name="tahunMasuk" th:field="*{tahunMasuk}" />
 				</div>
 			</div>
 			<br>
 			<div class="row">
 				<div class="col-2">Provinsi</div>
 				<div class="col-4">
-					<select class="form-control" id="provinsi" name="provinsi" required="required" th:field="${pegawai.instansi.provinsi}">
+					<select class="form-control" id="provinsi" name="provinsi" th:field="${pegawai.instansi.provinsi}">
 						<option th:each="provinsi : ${listProvinsi}"
 								th:value="${provinsi.id}"
 								th:text="${provinsi.nama}">
@@ -76,7 +76,6 @@
 									th:field="*{jabatanList}"
 									th:value="${jabatan.id}" />
 								<label th:for="${#ids.prev('jabatanList')}"></label></td>
-								
 						</tr>
 					</table>
 				</div>
@@ -88,11 +87,11 @@
 	</div>
 	
 	<script>
-	$( document ).ready(
-		function() {
+	$( document ).ready(	
+	        function() {
 	            $.getJSON("http://localhost:8080/get-provinsi-update", {
 	                provinsiId : $("#provinsi").val(),
-	                pegawaiNip: $("#nipHid").val(),
+	                pegawaiNip: $("#nipP").val(),
 	                ajax : 'true'
 	            }, function(data) {
 	            	var len = data.length;
@@ -123,8 +122,7 @@
 		         });
 	           });
 		  	
-		 $('#instansi').change(
-			function(){					
+		 $('#instansi').change(function(){					
 				$.getJSON("http://localhost:8080/get-instansi", {
 	                instansiId : $(this).val(),
 	                ajax : 'true'
@@ -132,7 +130,7 @@
 	            function(data) {
 	                this.value = data;
 	       	});
-		});
+		});	
 	</script>
 </body>
 </html>

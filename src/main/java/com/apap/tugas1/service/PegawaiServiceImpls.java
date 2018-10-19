@@ -26,27 +26,14 @@ public class PegawaiServiceImpls implements PegawaiService{
 	}
 
 	@Override
-	public Double getGajiPegawai(String nip) {
-		
-		PegawaiModel pegawai = pegawaiDb.findByNip(nip);
-		List<JabatanModel> listJabatan = pegawai.getJabatanList();
-		
-		Double gajiPokok = listJabatan.get(0).getGajiPokok();
-		Double tunjangan = pegawai.getInstansi().getProvinsi().getPresentaseTunjangan();
-		
-		System.out.println(gajiPokok + ((tunjangan/100)*gajiPokok));
-		return gajiPokok + ((tunjangan/100)*gajiPokok);
-	}
-
-	@Override
 	public void addPegawai(PegawaiModel pegawai) {
 		pegawaiDb.save(pegawai);
 	}
 
 	@Override
-	public void updatePegawai(PegawaiModel pegawai) {
+	public void updatePegawai(PegawaiModel pegawai, long idPegawai) {
 		
-		PegawaiModel resPegawai = pegawaiDb.getOne(pegawai.getId());
+		PegawaiModel resPegawai = pegawaiDb.findById(idPegawai).get();
 		
 		resPegawai.setNama(pegawai.getNama());
 		resPegawai.setTempatLahir(pegawai.getTempatLahir());
@@ -57,33 +44,4 @@ public class PegawaiServiceImpls implements PegawaiService{
 		pegawaiDb.save(resPegawai);
 		
 	}
-
-	@Override
-	public void updateNip(PegawaiModel pegawai) {
-		
-		String nip = ""+pegawai.getInstansi().getId();
-		
-		String[] tglLahir = pegawai.getTanggalLahir().toString().split("-");
-		String stringTglLahir = tglLahir[2] + tglLahir[1] + tglLahir[0].substring(2, 4);
-		nip += stringTglLahir;
-		
-		nip += pegawai.getTahunMasuk();
-		
-		int counter = 1;
-		for(PegawaiModel p : pegawai.getInstansi().getPegawaiInstansi()) {
-			if (p.getTahunMasuk().equals(pegawai.getTahunMasuk()) &&
-				p.getTanggalLahir().equals(pegawai.getTanggalLahir())
-				) {
-				counter++;
-				
-			}
-		}
-		
-		nip += "0"+counter;
-		
-		pegawai.setNip(nip);
-	}
-
-	
-	
 }
