@@ -43,6 +43,47 @@ public class PegawaiServiceImpls implements PegawaiService{
 		pegawaiDb.save(pegawai);
 	}
 
+	@Override
+	public void updatePegawai(PegawaiModel pegawai) {
+		
+		PegawaiModel resPegawai = pegawaiDb.getOne(pegawai.getId());
+		
+		resPegawai.setNama(pegawai.getNama());
+		resPegawai.setTempatLahir(pegawai.getTempatLahir());
+		resPegawai.setTahunMasuk(pegawai.getTahunMasuk());
+		resPegawai.setInstansi(pegawai.getInstansi());
+		resPegawai.setJabatanList(pegawai.getJabatanList());
+		
+		pegawaiDb.save(resPegawai);
+		
+	}
+
+	@Override
+	public void updateNip(PegawaiModel pegawai) {
+		
+		String nip = ""+pegawai.getInstansi().getId();
+		
+		String[] tglLahir = pegawai.getTanggalLahir().toString().split("-");
+		String stringTglLahir = tglLahir[2] + tglLahir[1] + tglLahir[0].substring(2, 4);
+		nip += stringTglLahir;
+		
+		nip += pegawai.getTahunMasuk();
+		
+		int counter = 1;
+		for(PegawaiModel p : pegawai.getInstansi().getPegawaiInstansi()) {
+			if (p.getTahunMasuk().equals(pegawai.getTahunMasuk()) &&
+				p.getTanggalLahir().equals(pegawai.getTanggalLahir())
+				) {
+				counter++;
+				
+			}
+		}
+		
+		nip += "0"+counter;
+		
+		pegawai.setNip(nip);
+	}
+
 	
 	
 }

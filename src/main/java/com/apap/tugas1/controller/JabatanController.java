@@ -59,7 +59,7 @@ public class JabatanController {
 			Model model) {
 		jabatan.setId(idJabatan);
 		jabatanService.updateJabatan(jabatan);
-		return "update";
+		return "update-jabatan-submit";
 	}
 	
 	@RequestMapping(value = "/jabatan/hapus", method = RequestMethod.POST)

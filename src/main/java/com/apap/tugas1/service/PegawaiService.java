@@ -9,4 +9,7 @@ public interface PegawaiService {
 	PegawaiModel getPegawaiDetailByNIP(String nip);
 	Double getGajiPegawai(String nip);
 	void addPegawai(PegawaiModel pegawai);
+	void updatePegawai(PegawaiModel pegawai);
+	void updateNip(PegawaiModel pegawai);
+	
 }

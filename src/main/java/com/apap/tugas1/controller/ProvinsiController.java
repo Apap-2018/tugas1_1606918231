@@ -34,7 +34,7 @@ public class ProvinsiController {
 	    return provinsi.getInstansiList();
 	}
 	
-	@RequestMapping(value = "/provinsi-get-update", method = RequestMethod.GET)
+	@RequestMapping(value = "/get-provinsi-update", method = RequestMethod.GET)
 	public @ResponseBody List<InstansiModel> findAllInstansi(@RequestParam(value = "provinsiId", required = true) long id, @RequestParam(value = "pegawaiNip", required = true) String pegawaiNip, Model model) {
 	    String nip = pegawaiNip.substring(0, 4);
 	    InstansiModel instansi = instansiService.getInstansiById(Long.parseLong(nip));

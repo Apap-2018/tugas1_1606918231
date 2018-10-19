@@ -22,7 +22,7 @@ public class InstansiController {
 	    return instansi;
 	}
 	
-	@RequestMapping(value = "/instansi-get-ubah", method = RequestMethod.GET)
+	@RequestMapping(value = "/get-instansi-update", method = RequestMethod.GET)
 	public @ResponseBody InstansiModel getInstansiById(@RequestParam(value = "instansiId", required = true) String instansiId) {
 		String id = instansiId.substring(0,4);
 		InstansiModel instansi = instansiService.getInstansiById(Long.parseLong(id));

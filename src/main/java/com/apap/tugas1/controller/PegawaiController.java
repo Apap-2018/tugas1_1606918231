@@ -69,29 +69,8 @@ public class PegawaiController {
 	
 	@RequestMapping(value = "/pegawai/tambah", method = RequestMethod.POST)
 	private String addPegawaiSubmit(@ModelAttribute PegawaiModel pegawai, Model model) {
-		String nip = ""+pegawai.getInstansi().getId();
 		
-		String[] tglLahir = pegawai.getTanggalLahir().toString().split("-");
-		String stringTglLahir = tglLahir[2] + tglLahir[1] + tglLahir[0].substring(2, 4);
-		nip += stringTglLahir;
-		
-		nip += pegawai.getTahunMasuk();
-		
-		int counter = 1;
-		for(PegawaiModel p : pegawai.getInstansi().getPegawaiInstansi()) {
-			if (p.getTahunMasuk().equals(pegawai.getTahunMasuk()) &&
-				p.getTanggalLahir().equals(pegawai.getTanggalLahir())
-				) {
-				counter++;
-				
-			}
-		}
-		
-		nip += "0"+counter;
-		
-		System.out.println(pegawai.getJabatanList().size());
-		
-		pegawai.setNip(nip);
+		pegawaiService.updateNip(pegawai);
 		pegawaiService.addPegawai(pegawai);
 		model.addAttribute("pegawai", pegawai);
 		return "add-pegawai-submit";
@@ -101,7 +80,20 @@ public class PegawaiController {
 	private String ubahProfilPegawai(@RequestParam("nip") String nip, Model model) {
 		PegawaiModel pegawai = pegawaiService.getPegawaiDetailByNIP(nip);
 		
+		System.out.println(pegawai.getNama());
 		model.addAttribute("pegawai", pegawai);
+		model.addAttribute("listProvinsi", provinsiService.getListProvinsi());
+		model.addAttribute("listJabatan", jabatanService.getListJabatan());
 		return "update-pegawai";
+	}
+	
+	@RequestMapping(value = "/pegawai/ubah", method = RequestMethod.POST)
+	private String ubahProfilPegawaiSubmit(@ModelAttribute PegawaiModel pegawai, Model model) {
+		
+		pegawaiService.updateNip(pegawai);
+		pegawaiService.updatePegawai(pegawai);
+		pegawaiService.addPegawai(pegawai);
+		model.addAttribute("pegawai", pegawai);
+		return "update-pegawai-submit";
 	}
 }
