@@ -38,6 +38,11 @@ public class PegawaiServiceImpls implements PegawaiService{
 		return gajiPokok + ((tunjangan/100)*gajiPokok);
 	}
 
+	@Override
+	public void addPegawai(PegawaiModel pegawai) {
+		pegawaiDb.save(pegawai);
+	}
+
 	
 	
 }

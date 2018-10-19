@@ -74,6 +74,6 @@ public class JabatanModel implements Serializable{
 
 	public void setGajiPokok(double gajiPokok) {
 		this.gajiPokok = gajiPokok;
-	}
+	}	
 	
 }

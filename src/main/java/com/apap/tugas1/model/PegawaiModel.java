@@ -134,5 +134,4 @@ public class PegawaiModel implements Serializable {
 	public void setInstansi(InstansiModel instansi) {
 		this.instansi = instansi;
 	}
-	
 }
