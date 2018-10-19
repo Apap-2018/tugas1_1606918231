@@ -28,7 +28,7 @@ public class JabatanController {
 	@RequestMapping(value = "/jabatan/tambah", method = RequestMethod.POST)
 	private String addJabatan(@ModelAttribute JabatanModel jabatan, Model model) {
 		jabatanService.addJabatan(jabatan);
-		return "add";
+		return "add-jabatan-submit";
 	}
 	
 	@RequestMapping(value = "/jabatan/view", method = RequestMethod.GET)

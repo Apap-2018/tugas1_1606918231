@@ -14,22 +14,22 @@
 		<form th:action="@{/jabatan/tambah}" th:object="${jabatan}" method="POST">
 			<div class="row">
 				<div class="col-2">Nama</div>
-				<div class="col-6">
-					<input type="text" name="nama" />
+				<div class="col-3">
+					<input class="form-control" type="text" name="nama" />
 				</div>
 			</div>
 			<br>
 			<div class="row">
 				<div class="col-2">Deskripsi</div>
-				<div class="col-6">
-					<input type="text" name="deskripsi" />
+				<div class="col-3">
+					<input class="form-control" type="text" name="deskripsi" />
 				</div>
 			</div>
 			<br>
 			<div class="row">
 				<div class="col-2">Gaji Pokok</div>
-				<div class="col-6">
-					<input type="number" step="0.01" name="gajiPokok" />
+				<div class="col-3">
+					<input class="form-control" type="number" step="0.01" name="gajiPokok" />
 				</div>
 			</div>
 			<button class="btn btn-primary" type="submit">Submit</button>

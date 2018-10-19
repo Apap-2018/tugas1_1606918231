@@ -44,6 +44,8 @@ public class PegawaiController {
 		
 		PegawaiModel pegawai = pegawaiService.getPegawaiDetailByNIP(nip);
 		
+		System.out.println(pegawai.getJabatanList().size());
+		
 		double gajiPokok = 0;
 		for (JabatanModel jabatan : pegawai.getJabatanList()) {
 			if(jabatan.getGajiPokok() > gajiPokok) {
@@ -116,7 +118,7 @@ public class PegawaiController {
 	@RequestMapping(value = "/pegawai/ubah", method = RequestMethod.POST)
 	private String ubahProfilPegawaiSubmit(@ModelAttribute PegawaiModel pegawai, Model model) {
 		String nip = ""+ pegawai.getInstansi().getId();
-
+		
 		String[] arrTglLahir= pegawai.getTanggalLahir().toString().split("-");
 		String strTglLahir = arrTglLahir[2] + arrTglLahir[1] + arrTglLahir[0].substring(2, 4);
 		nip += strTglLahir;

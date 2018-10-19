@@ -59,27 +59,25 @@
 			<div class="row">
 				<div class="col-2">Instansi</div>
 				<div class="col-4">
-					<select class="form-control" id="instansi" name="instansi" th:value="${instansi}" required="required">
+					<select class="form-control" id="instansi" name="instansi" required>
 						<option disabled="disabled" selected="selected">-- Pilih Instansi --</option>
 					</select>
 				</div>
 			</div>
 			<br>
 			<div class="row">
-				<div class="col-2">Jabatan</div>
-				<div class="col-6">
-					<table border="1">
-						<tr th:each="jabatan,iterationStatus : ${listJabatan}">
-							<td th:text="${iterationStatus.count}"></td>
-							<td th:text="${jabatan.nama}"></td>
-							<td><input type="checkbox"
-									th:field="*{jabatanList}"
-									th:value="${jabatan.id}" />
-								<label th:for="${#ids.prev('jabatanList')}"></label></td>
-						</tr>
-					</table>
-				</div>
+				<div class="col-2">Pilih Jabatan</div>
 			</div>
+			<br>
+			<table border="1">
+				<tr th:each="jabatan,iterationStatus : ${listJabatan}">
+					<td th:text="${iterationStatus.count}"></td>
+					<td th:text="${jabatan.nama}"></td>
+					<td>
+					<input type="checkbox" th:field="*{jabatanList}" th:value="${jabatan.id}" />
+						<label th:for="${#ids.prev('jabatanList')}"></label></td>
+				</tr>
+			</table>
 			<br>
 			<button class="btn btn-primary" type="submit">Submit</button>
 			<br><br>
