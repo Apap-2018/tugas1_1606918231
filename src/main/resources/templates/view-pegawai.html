@@ -38,7 +38,7 @@
 			<hr>
 			<div class="row">
 				<div class="col-2">Nama Instansi</div>
-				<div class="col-9" th:text="${pegawai.instansi.nama}"></div>
+				<div class="col-9" th:text="${pegawai.instansi.nama}+' - ' + ${pegawai.instansi.provinsi.nama}"></div>
 			</div>
 			<hr>
 			<div class="row">
@@ -53,7 +53,7 @@
 			<hr>
 			<div class="row">
 				<div class="col-2">Gaji</div>
-				<div class="col-9" th:text="${#numbers.formatDecimal(gaji, 0, 'COMMA', 2, 'POINT')}"></div>
+				<div class="col-9" th:text="'Rp '+${#numbers.formatDecimal(gaji, 0, 'COMMA', 2, 'POINT')}"></div>
 			</div>
 			<hr>
 			<form th:action="@{/pegawai/ubah}" method="GET">

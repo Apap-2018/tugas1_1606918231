@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.apap.tugas1.model.InstansiModel;
 import com.apap.tugas1.model.JabatanModel;
 import com.apap.tugas1.model.PegawaiModel;
+import com.apap.tugas1.model.ProvinsiModel;
+import com.apap.tugas1.service.InstansiServiceImpls;
 import com.apap.tugas1.service.JabatanServiceImpls;
 import com.apap.tugas1.service.PegawaiServiceImpls;
 import com.apap.tugas1.service.ProvinsiServiceImpls;
@@ -29,13 +31,18 @@ public class PegawaiController {
 	@Autowired
 	private ProvinsiServiceImpls provinsiService;
 	
+	@Autowired
+	private InstansiServiceImpls instansiService;
+	
 	@RequestMapping("/")
 	private String home(Model model) {
 		
 		List<JabatanModel> listJabatan = jabatanService.findAllJabatan();
+		List<InstansiModel> listInstansi = instansiService.getListInstansi();
 		
 		model.addAttribute("title", "Home");
 		model.addAttribute("listJabatan", listJabatan);
+		model.addAttribute("listInstansi", listInstansi);
 		return "home";
 	}
 	
@@ -137,5 +144,34 @@ public class PegawaiController {
 		pegawaiService.addPegawai(pegawai);
 		model.addAttribute("pegawai", pegawai);
 		return "update-pegawai-submit";
+	}
+	
+	@RequestMapping(value = "/pegawai/termuda-tertua", method = RequestMethod.GET)
+	private String viewTermudaTertua(@RequestParam(value = "idInstansi") long idInstansi, Model model) {
+		List<PegawaiModel> listPegawai = instansiService.getInstansiById(idInstansi).getPegawaiInstansi();
+		PegawaiModel pegawaiMuda = listPegawai.get(0);
+		PegawaiModel pegawaiTua = listPegawai.get(1);
+		
+		// loop untuk mencari pegawai termuda
+		for(int i=0 ; i<listPegawai.size() ; i++) {
+			if(i+1 != listPegawai.size()) {
+				if(pegawaiMuda.getTanggalLahir().before(listPegawai.get(i+1).getTanggalLahir())) {
+					pegawaiMuda = listPegawai.get(i+1);
+				}
+			}
+		}
+		
+		// loop untuk mencari pegawai tertua
+		for(int i=0 ; i<listPegawai.size() ; i++) {
+			if(i+1 != listPegawai.size()) {
+				if(pegawaiTua.getTanggalLahir().after(listPegawai.get(i+1).getTanggalLahir())) {
+					pegawaiTua = listPegawai.get(i+1);
+				}
+			}
+		}
+		
+		model.addAttribute("pegawaiTua", pegawaiTua);
+		model.addAttribute("pegawaiMuda", pegawaiMuda);
+		return "pegawai-tertua-termuda";
 	}
 }

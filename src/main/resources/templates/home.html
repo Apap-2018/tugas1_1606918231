@@ -11,6 +11,7 @@
 	<div class="container-fluid">
 		<br>
 		<h2>Sistem Informasi Kepegawaian</h2>
+		<br>
 		<p>Selamat datang di Sistem Informasi Kepegawaian</p>
 		<br>
 		<hr>
@@ -39,11 +40,25 @@
 				</div>
 			</div>
 			<br>
-			<button class="btn btn-primary" type="submit">Cari</button>
+			<button class="btn btn-primary" type="submit">Lihat</button>
 		</form>
 		<br>
 		<hr>
-		<h2></h2>
+		<h2>Lihat Pegawai Termuda dan Tertua</h2>
+		<p><strong>Pilih Provinsi</strong></p>
+		<form th:action="@{/pegawai/termuda-tertua}" method="GET">
+			<div class="row">
+				<div class="col-6">
+					<select class="form-control" th:name="idInstansi">
+						<option disabled="disabled" selected="selected"> Pilih Instansi </option>
+						<option th:each="instansi : ${listInstansi}" th:value="${instansi.id}" th:text="${instansi.nama}+' - '+${instansi.provinsi.nama}"></option>
+					</select>
+				</div>
+			</div>
+			<br>
+			<button class="btn btn-primary" type="submit">Lihat</button>
+		</form>
+		<br><hr><br>
 	</div>
 </body>
 
