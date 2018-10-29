@@ -169,18 +169,6 @@ public class PegawaiController {
 		return "pegawai-tertua-termuda";
 	}
 	
-	
-	 /*
-	@RequestMapping(value = "/pegawai/cari")
-	private String cariPegawai(Model model) {
-		model.addAttribute("listProvinsi", provinsiService.getListProvinsi());
-		model.addAttribute("listInstansi", instansiService.getListInstansi());
-		model.addAttribute("listJabatan", jabatanService.getListJabatan());
-		return "pegawai-cari";	
-	}*/
-	
-	
-	
 	@RequestMapping(value= "/pegawai/cari", method=RequestMethod.GET)
 	private String cariPegawaiSubmit(
 			@RequestParam(value="idProvinsi", required = false) String idProvinsi,
@@ -199,6 +187,8 @@ public class PegawaiController {
 			return "pegawai-cari";
 		}
 		else {
+			
+			// filter untuk pegawai yg bekerja di provinsi terkait
 			if (idProvinsi!=null && !idProvinsi.equals("")) {
 				List<PegawaiModel> temp = new ArrayList<PegawaiModel>();
 				for (PegawaiModel peg: listPegawai) {
@@ -212,6 +202,8 @@ public class PegawaiController {
 			else {
 				model.addAttribute("idProvinsi", "");
 			}
+			
+			// filter untuk pegawai yg bekerja di instansi terkait
 			if (idInstansi!=null&&!idInstansi.equals("")) {
 				List<PegawaiModel> temp = new ArrayList<PegawaiModel>();
 				for (PegawaiModel peg: listPegawai) {
@@ -225,6 +217,8 @@ public class PegawaiController {
 			else {
 				model.addAttribute("idInstansi", "");
 			}
+			
+			// filter untuk pegawai yg menjabat jabatan terkait
 			if (idJabatan!=null&&!idJabatan.equals("")) {
 				List<PegawaiModel> temp = new ArrayList<PegawaiModel>();
 				for (PegawaiModel peg: listPegawai) {
