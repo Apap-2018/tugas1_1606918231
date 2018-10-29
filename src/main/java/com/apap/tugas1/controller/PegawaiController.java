@@ -1,5 +1,6 @@
 package com.apap.tugas1.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +10,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.apap.tugas1.model.InstansiModel;
 import com.apap.tugas1.model.JabatanModel;
 import com.apap.tugas1.model.PegawaiModel;
-import com.apap.tugas1.model.ProvinsiModel;
 import com.apap.tugas1.service.InstansiServiceImpls;
 import com.apap.tugas1.service.JabatanServiceImpls;
 import com.apap.tugas1.service.PegawaiServiceImpls;
@@ -37,7 +38,7 @@ public class PegawaiController {
 	@RequestMapping("/")
 	private String home(Model model) {
 		
-		List<JabatanModel> listJabatan = jabatanService.findAllJabatan();
+		List<JabatanModel> listJabatan = jabatanService.getListJabatan();
 		List<InstansiModel> listInstansi = instansiService.getListInstansi();
 		
 		model.addAttribute("title", "Home");
@@ -50,8 +51,6 @@ public class PegawaiController {
 	private String viewPegawai(@RequestParam("nip") String nip, Model model) {
 		
 		PegawaiModel pegawai = pegawaiService.getPegawaiDetailByNIP(nip);
-		
-		System.out.println(pegawai.getJabatanList().size());
 		
 		double gajiPokok = 0;
 		for (JabatanModel jabatan : pegawai.getJabatanList()) {
@@ -67,11 +66,6 @@ public class PegawaiController {
 		return "view-pegawai";
 	}
 	
-	@RequestMapping(value = "/pegawai/cari")
-	private String findPegawai(Model model) {
-		return "find-pegawai";
-	}
-	
 	@RequestMapping(value = "/pegawai/tambah", method = RequestMethod.GET)
 	private String addPegawai(Model model) {
 		PegawaiModel pegawai = new PegawaiModel();
@@ -79,7 +73,7 @@ public class PegawaiController {
 		
 		model.addAttribute("pegawai", pegawai);
 		model.addAttribute("listProvinsi", provinsiService.getListProvinsi());
-		model.addAttribute("listJabatan", jabatanService.findAllJabatan());
+		model.addAttribute("listJabatan", jabatanService.getListJabatan());
 		return "add-pegawai";
 	}
 	
@@ -118,7 +112,7 @@ public class PegawaiController {
 		
 		model.addAttribute("pegawai", pegawai);
 		model.addAttribute("listProvinsi", provinsiService.getListProvinsi());
-		model.addAttribute("listJabatan", jabatanService.findAllJabatan());
+		model.addAttribute("listJabatan", jabatanService.getListJabatan());
 		return "update-pegawai";
 	}
 	
@@ -173,5 +167,84 @@ public class PegawaiController {
 		model.addAttribute("pegawaiTua", pegawaiTua);
 		model.addAttribute("pegawaiMuda", pegawaiMuda);
 		return "pegawai-tertua-termuda";
+	}
+	
+	
+	 /*
+	@RequestMapping(value = "/pegawai/cari")
+	private String cariPegawai(Model model) {
+		model.addAttribute("listProvinsi", provinsiService.getListProvinsi());
+		model.addAttribute("listInstansi", instansiService.getListInstansi());
+		model.addAttribute("listJabatan", jabatanService.getListJabatan());
+		return "pegawai-cari";	
+	}*/
+	
+	
+	
+	@RequestMapping(value= "/pegawai/cari", method=RequestMethod.GET)
+	private String cariPegawaiSubmit(
+			@RequestParam(value="idProvinsi", required = false) String idProvinsi,
+			@RequestParam(value="idInstansi", required = false) String idInstansi,
+			@RequestParam(value="idJabatan", required = false) String idJabatan,
+			Model model) {
+		
+		
+		
+		model.addAttribute("listProvinsi", provinsiService.getListProvinsi());
+		model.addAttribute("listInstansi", instansiService.getListInstansi());
+		model.addAttribute("listJabatan", jabatanService.getListJabatan());
+		List<PegawaiModel> listPegawai = pegawaiService.getListPegawai();
+		
+		if ((idProvinsi==null || idProvinsi.equals("")) && (idInstansi==null||idInstansi.equals("")) && (idJabatan==null||idJabatan.equals(""))) {
+			return "pegawai-cari";
+		}
+		else {
+			if (idProvinsi!=null && !idProvinsi.equals("")) {
+				List<PegawaiModel> temp = new ArrayList<PegawaiModel>();
+				for (PegawaiModel peg: listPegawai) {
+					if (((Long)peg.getInstansi().getProvinsi().getId()).toString().equals(idProvinsi)) {
+						temp.add(peg);
+					}
+				}
+				listPegawai = temp;
+				model.addAttribute("idProvinsi", Long.parseLong(idProvinsi));
+			}
+			else {
+				model.addAttribute("idProvinsi", "");
+			}
+			if (idInstansi!=null&&!idInstansi.equals("")) {
+				List<PegawaiModel> temp = new ArrayList<PegawaiModel>();
+				for (PegawaiModel peg: listPegawai) {
+					if (((Long)peg.getInstansi().getId()).toString().equals(idInstansi)) {
+						temp.add(peg);
+					}
+				}
+				listPegawai = temp;
+				model.addAttribute("idInstansi", Long.parseLong(idInstansi));
+			}
+			else {
+				model.addAttribute("idInstansi", "");
+			}
+			if (idJabatan!=null&&!idJabatan.equals("")) {
+				List<PegawaiModel> temp = new ArrayList<PegawaiModel>();
+				for (PegawaiModel peg: listPegawai) {
+					for (JabatanModel jabatan:peg.getJabatanList()) {
+						if (((Long)jabatan.getId()).toString().equals(idJabatan)) {
+							temp.add(peg);
+							break;
+						}
+					}
+					
+				}
+				listPegawai = temp;
+				model.addAttribute("idJabatan", Long.parseLong(idJabatan));
+			}
+			else {
+				model.addAttribute("idJabatan", "");
+			}
+		}
+		model.addAttribute("listPegawai",listPegawai);
+		return "pegawai-cari";
+		
 	}
 }

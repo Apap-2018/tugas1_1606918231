@@ -44,4 +44,9 @@ public class PegawaiServiceImpls implements PegawaiService{
 		pegawaiDb.save(resPegawai);
 		
 	}
+
+	@Override
+	public List<PegawaiModel> getListPegawai() {
+		return pegawaiDb.findAll();
+	}
 }

@@ -8,7 +8,7 @@ import com.apap.tugas1.model.JabatanModel;
 @Service
 public interface JabatanService {
 	void addJabatan(JabatanModel jabatan);
-	List<JabatanModel> findAllJabatan();
+	List<JabatanModel> getListJabatan();
 	JabatanModel getJabatanById(long id);
 	JabatanModel updateJabatan(JabatanModel jabatan);
 	void deleteJabatanById(long id);
